@@ -79,6 +79,9 @@ jobs:
 
       - run: ../../.circleci/build-test-deploy.sh << parameters.test >>
 
+      - store_artifacts:
+          path: ./reports
+
   deploy-module:
     executor: nodejs
     parameters:
@@ -253,6 +256,7 @@ jobs:
             . .circleci/install-rust.sh
             ./_scripts/gh-pages.sh
           fi
+
 
 workflows:
   test:
