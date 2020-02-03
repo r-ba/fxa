@@ -11,7 +11,9 @@ if grep -e "$MODULE" -e 'all' $DIR/../packages/test.list; then
   elif [[ -e Dockerfile-test ]]; then
     docker build -f Dockerfile-test -t ${MODULE}:test .
 
-    docker run --net="host" ${MODULE}:test npm run ${TEST:-test}
+    docker run -d --net="host" --name="auth-db-test" ${MODULE}:test npm run ${TEST:-test}
+
+    docker cp auth-db-test:/app/report /reports
 
     if grep eslint "$DIR/../packages/$MODULE/Gruntfile.js"; then
       docker run --net="host" ${MODULE}:test /app/node_modules/.bin/grunt eslint

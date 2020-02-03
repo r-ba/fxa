@@ -28,7 +28,7 @@ const argv = [
   '--no-clean',
   '--reporter=lcov',
   '--reporter=text',
-  '--report-dir=/home/circleci/reports',
+  '--report-dir=reports',
   MOCHA_BIN,
 ];
 
