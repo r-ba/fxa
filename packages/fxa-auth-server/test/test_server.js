@@ -94,10 +94,10 @@ TestServer.stop = function(maybeServer) {
   }
 };
 
-TestServer.prototype.stop = function() {
+TestServer.prototype.stop = async function() {
   currentServer = undefined;
   try {
-    this.db.close();
+    await this.db.close();
   } catch (e) {}
   if (this.server) {
     const doomed = [this.server.close(), this.mail.close()];

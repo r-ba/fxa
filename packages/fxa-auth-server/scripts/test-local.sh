@@ -7,7 +7,7 @@ if [ -z "$CORS_ORIGIN" ]; then export CORS_ORIGIN="http://foo,http://bar"; fi;
 
 set -u
 
-DEFAULT_ARGS="-R dot --recursive --timeout 5000 --exit"
+DEFAULT_ARGS="--recursive --timeout 10000 --retries 2 --exit"
 
 ./scripts/gen_keys.js
 ./scripts/gen_vapid_keys.js
@@ -16,12 +16,6 @@ node ../fxa-auth-db-mysql/bin/db_patcher > /dev/null
 
 GLOB=$*
 if [ -z "$GLOB" ]; then
-  echo "Local tests"
-  ./scripts/mocha-coverage.js $DEFAULT_ARGS test/local
-
-  echo "Oauth tests"
-  ./scripts/mocha-coverage.js $DEFAULT_ARGS test/oauth
-
   echo "Remote tests"
   ./scripts/mocha-coverage.js $DEFAULT_ARGS test/remote
 
